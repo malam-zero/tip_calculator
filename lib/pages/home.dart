@@ -29,8 +29,14 @@ class _HomeState extends State<Home> {
             ),
             child: Column(
               children: [
-                Text('Total Per Person', style: textTheme.titleMedium),
-                Text('450&', style: textTheme.displaySmall),
+                Text('Total Per Person', style: style),
+                Text(
+                  '450&',
+                  style: style.copyWith(
+                    color: theme.colorScheme.onPrimary,
+                    fontSize: theme.textTheme.displaySmall!.fontSize,
+                  ),
+                ),
               ],
             ),
           ),
