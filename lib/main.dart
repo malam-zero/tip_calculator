@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tip_calculator/pages/home.dart';
 
 void main() {
@@ -18,9 +19,22 @@ class MTip extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("This is an app bar"),
-          leading: Text('data'),
-          actions: [Text("ooh"), Text("yes")],
+          title: Center(child: Text("Bill Split & Tip")),
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SvgPicture.asset(
+              'assets/icons/logo.svg',
+              height: 20.0,
+              width: 20.0,
+              semanticsLabel: 'Logo', // Good for accessibility
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Switch(value: true, onChanged: null),
+            ),
+          ],
         ),
         body: Home(),
       ),

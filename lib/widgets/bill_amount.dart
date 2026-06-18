@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tip_calculator/widgets/taka_icon.dart';
 
 class BillAmount extends StatelessWidget {
   const BillAmount({
@@ -17,11 +17,7 @@ class BillAmount extends StatelessWidget {
         border: OutlineInputBorder(),
         prefixIcon: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: SvgPicture.asset(
-            'assets/icons/bdt.svg',
-            width: 20,
-            height: 20,
-          ),
+          child: TakaIcon(color: Color(0xff000000)),
         ),
         labelText: 'Bill Amount',
       ),

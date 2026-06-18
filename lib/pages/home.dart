@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tip_calculator/widgets/bill_amount.dart';
 import 'package:tip_calculator/widgets/person_counter.dart';
+import 'package:tip_calculator/widgets/taka_icon.dart';
 import 'package:tip_calculator/widgets/tip_slider.dart';
 
 class Home extends StatefulWidget {
@@ -13,6 +14,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _personCount = 1;
   double _tipPercentage = 0;
+  double _billTotal = 0;
+
+  double totalPerPerson() {
+    return (((_billTotal * _tipPercentage) + (_billTotal)) / _personCount);
+  }
+
+  double totalTip() {
+    return ((_billTotal * _tipPercentage));
+  }
 
   void _increment() {
     setState(() {
@@ -36,6 +46,9 @@ class _HomeState extends State<Home> {
       color: theme.colorScheme.onPrimary,
       fontWeight: FontWeight.bold,
     );
+
+    double total = totalPerPerson();
+    double tip = totalTip();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -50,12 +63,18 @@ class _HomeState extends State<Home> {
             child: Column(
               children: [
                 Text('Total Per Person', style: style),
-                Text(
-                  '450&',
-                  style: style.copyWith(
-                    color: theme.colorScheme.onPrimary,
-                    fontSize: theme.textTheme.displaySmall!.fontSize,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TakaIcon(color: const Color(0xFFFFFFFF)),
+                    Text(
+                      total.toStringAsFixed(1),
+                      style: style.copyWith(
+                        color: theme.colorScheme.onPrimary,
+                        fontSize: theme.textTheme.displaySmall!.fontSize,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -73,7 +92,14 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  BillAmount(billamount: '', onChaned: (String value) {}),
+                  BillAmount(
+                    billamount: _billTotal.toString(),
+                    onChaned: (String value) {
+                      setState(() {
+                        _billTotal = double.parse(value);
+                      });
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: PersonCounter(
@@ -89,7 +115,15 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Tip', style: theme.textTheme.titleMedium),
-                        Text('\$20', style: theme.textTheme.titleMedium),
+                        Row(
+                          children: [
+                            TakaIcon(color: Color(0xFF000000)),
+                            Text(
+                              tip.toStringAsFixed(1),
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
