@@ -3,6 +3,7 @@ import 'package:tip_calculator/widgets/bill_amount.dart';
 import 'package:tip_calculator/widgets/person_counter.dart';
 import 'package:tip_calculator/widgets/taka_icon.dart';
 import 'package:tip_calculator/widgets/tip_slider.dart';
+import 'package:tip_calculator/widgets/total_per_person.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -43,7 +44,7 @@ class _HomeState extends State<Home> {
     var textTheme = Theme.of(context).textTheme;
     var theme = Theme.of(context);
     final style = textTheme.titleMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
+      color: theme.colorScheme.primary,
       fontWeight: FontWeight.bold,
     );
 
@@ -52,34 +53,7 @@ class _HomeState extends State<Home> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            padding: EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.inversePrimary,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              children: [
-                Text('Total Per Person', style: style),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TakaIcon(color: const Color(0xFFFFFFFF)),
-                    Text(
-                      total.toStringAsFixed(1),
-                      style: style.copyWith(
-                        color: theme.colorScheme.onPrimary,
-                        fontSize: theme.textTheme.displaySmall!.fontSize,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+        TotalPerPerson(theme: theme, style: style, total: total),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
@@ -117,7 +91,7 @@ class _HomeState extends State<Home> {
                         Text('Tip', style: theme.textTheme.titleMedium),
                         Row(
                           children: [
-                            TakaIcon(color: Color(0xFF000000)),
+                            TakaIcon(color: theme.colorScheme.onSurface),
                             Text(
                               tip.toStringAsFixed(1),
                               style: theme.textTheme.titleMedium,
